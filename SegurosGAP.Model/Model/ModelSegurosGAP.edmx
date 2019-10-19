@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBSegurosGAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PolizasSeguros">
+          <Key>
+            <PropertyRef Name="IdPolizaSeguro" />
+          </Key>
+          <Property Name="IdPolizaSeguro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
+          <Property Name="IdTipoCubrimiento" Type="int" Nullable="false" />
+          <Property Name="InicioVigencia" Type="datetime" />
+          <Property Name="PeriodoCobertura" Type="int" />
+          <Property Name="PrecioPoliza" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IdTipoRiesgo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposCubrimiento">
+          <Key>
+            <PropertyRef Name="IdTipoCubrimiento" />
+          </Key>
+          <Property Name="IdTipoCubrimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoCubrimiento" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="TiposRiesgo">
+          <Key>
+            <PropertyRef Name="IdTipoRiesgo" />
+          </Key>
+          <Property Name="IdTipoRiesgo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoRiesgo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK_TiposCubrimiento_PolizasSeguros">
+          <End Role="TiposCubrimiento" Type="Self.TiposCubrimiento" Multiplicity="1" />
+          <End Role="PolizasSeguros" Type="Self.PolizasSeguros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCubrimiento">
+              <PropertyRef Name="IdTipoCubrimiento" />
+            </Principal>
+            <Dependent Role="PolizasSeguros">
+              <PropertyRef Name="IdTipoCubrimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposRiesgo_PolizasSeguros">
+          <End Role="TiposRiesgo" Type="Self.TiposRiesgo" Multiplicity="1" />
+          <End Role="PolizasSeguros" Type="Self.PolizasSeguros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposRiesgo">
+              <PropertyRef Name="IdTipoRiesgo" />
+            </Principal>
+            <Dependent Role="PolizasSeguros">
+              <PropertyRef Name="IdTipoRiesgo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSegurosGAPModelStoreContainer">
+          <EntitySet Name="PolizasSeguros" EntityType="Self.PolizasSeguros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposCubrimiento" EntityType="Self.TiposCubrimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposRiesgo" EntityType="Self.TiposRiesgo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TiposCubrimiento_PolizasSeguros" Association="Self.FK_TiposCubrimiento_PolizasSeguros">
+            <End Role="TiposCubrimiento" EntitySet="TiposCubrimiento" />
+            <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposRiesgo_PolizasSeguros" Association="Self.FK_TiposRiesgo_PolizasSeguros">
+            <End Role="TiposRiesgo" EntitySet="TiposRiesgo" />
+            <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBSegurosGAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PolizasSeguro">
+          <Key>
+            <PropertyRef Name="IdPolizaSeguro" />
+          </Key>
+          <Property Name="IdPolizaSeguro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipoCubrimiento" Type="Int32" Nullable="false" />
+          <Property Name="InicioVigencia" Type="DateTime" Precision="3" />
+          <Property Name="PeriodoCobertura" Type="Int32" />
+          <Property Name="PrecioPoliza" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IdTipoRiesgo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TiposCubrimiento" Relationship="Self.FK_TiposCubrimiento_PolizasSeguros" FromRole="PolizasSeguros" ToRole="TiposCubrimiento" />
+          <NavigationProperty Name="TiposRiesgo" Relationship="Self.FK_TiposRiesgo_PolizasSeguros" FromRole="PolizasSeguros" ToRole="TiposRiesgo" />
+        </EntityType>
+        <EntityType Name="TiposCubrimiento">
+          <Key>
+            <PropertyRef Name="IdTipoCubrimiento" />
+          </Key>
+          <Property Name="IdTipoCubrimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoCubrimiento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PolizasSeguros" Relationship="Self.FK_TiposCubrimiento_PolizasSeguros" FromRole="TiposCubrimiento" ToRole="PolizasSeguros" />
+        </EntityType>
+        <EntityType Name="TiposRiesgo">
+          <Key>
+            <PropertyRef Name="IdTipoRiesgo" />
+          </Key>
+          <Property Name="IdTipoRiesgo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoRiesgo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PolizasSeguros" Relationship="Self.FK_TiposRiesgo_PolizasSeguros" FromRole="TiposRiesgo" ToRole="PolizasSeguros" />
+        </EntityType>
+        <Association Name="FK_TiposCubrimiento_PolizasSeguros">
+          <End Role="TiposCubrimiento" Type="Self.TiposCubrimiento" Multiplicity="1" />
+          <End Role="PolizasSeguros" Type="Self.PolizasSeguro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCubrimiento">
+              <PropertyRef Name="IdTipoCubrimiento" />
+            </Principal>
+            <Dependent Role="PolizasSeguros">
+              <PropertyRef Name="IdTipoCubrimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposRiesgo_PolizasSeguros">
+          <End Role="TiposRiesgo" Type="Self.TiposRiesgo" Multiplicity="1" />
+          <End Role="PolizasSeguros" Type="Self.PolizasSeguro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposRiesgo">
+              <PropertyRef Name="IdTipoRiesgo" />
+            </Principal>
+            <Dependent Role="PolizasSeguros">
+              <PropertyRef Name="IdTipoRiesgo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSegurosGAPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PolizasSeguros" EntityType="Self.PolizasSeguro" />
+          <EntitySet Name="TiposCubrimientoes" EntityType="Self.TiposCubrimiento" />
+          <EntitySet Name="TiposRiesgoes" EntityType="Self.TiposRiesgo" />
+          <AssociationSet Name="FK_TiposCubrimiento_PolizasSeguros" Association="Self.FK_TiposCubrimiento_PolizasSeguros">
+            <End Role="TiposCubrimiento" EntitySet="TiposCubrimientoes" />
+            <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposRiesgo_PolizasSeguros" Association="Self.FK_TiposRiesgo_PolizasSeguros">
+            <End Role="TiposRiesgo" EntitySet="TiposRiesgoes" />
+            <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBSegurosGAPModelStoreContainer" CdmEntityContainer="DBSegurosGAPEntities">
+          <EntitySetMapping Name="PolizasSeguros">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.PolizasSeguro">
+              <MappingFragment StoreEntitySet="PolizasSeguros">
+                <ScalarProperty Name="IdPolizaSeguro" ColumnName="IdPolizaSeguro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdTipoCubrimiento" ColumnName="IdTipoCubrimiento" />
+                <ScalarProperty Name="InicioVigencia" ColumnName="InicioVigencia" />
+                <ScalarProperty Name="PeriodoCobertura" ColumnName="PeriodoCobertura" />
+                <ScalarProperty Name="PrecioPoliza" ColumnName="PrecioPoliza" />
+                <ScalarProperty Name="IdTipoRiesgo" ColumnName="IdTipoRiesgo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposCubrimientoes">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.TiposCubrimiento">
+              <MappingFragment StoreEntitySet="TiposCubrimiento">
+                <ScalarProperty Name="IdTipoCubrimiento" ColumnName="IdTipoCubrimiento" />
+                <ScalarProperty Name="TipoCubrimiento" ColumnName="TipoCubrimiento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposRiesgoes">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.TiposRiesgo">
+              <MappingFragment StoreEntitySet="TiposRiesgo">
+                <ScalarProperty Name="IdTipoRiesgo" ColumnName="IdTipoRiesgo" />
+                <ScalarProperty Name="TipoRiesgo" ColumnName="TipoRiesgo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
