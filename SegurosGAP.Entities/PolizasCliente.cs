@@ -14,18 +14,9 @@ namespace SegurosGAP.Entities
     using System.Runtime.Serialization;
     
     [DataContract(IsReference = true)]
-    public partial class PolizasSeguro
+    public partial class PolizasCliente
     {
         [DataMember]public int IdPolizaSeguro { get; set; }
-        [DataMember]public string Nombre { get; set; }
-        [DataMember]public string Descripcion { get; set; }
-        [DataMember]public int IdTipoCubrimiento { get; set; }
-        [DataMember]public Nullable<System.DateTime> InicioVigencia { get; set; }
-        [DataMember]public Nullable<int> PeriodoCobertura { get; set; }
-        [DataMember]public Nullable<decimal> PrecioPoliza { get; set; }
-        [DataMember]public int IdTipoRiesgo { get; set; }
-    
-        public virtual TiposCubrimiento TiposCubrimiento { get; set; }
-        public virtual TiposRiesgo TiposRiesgo { get; set; }
+        [DataMember]public int IdCliente { get; set; }
     }
 }

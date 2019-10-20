@@ -54,11 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\GenericRepository.cs" />
-    <Compile Include="Implementation\PolizasRepository.cs" />
+    <Compile Include="Interfaces\IApplicationRepository.cs" />
+    <Compile Include="Interfaces\IClientesRepository.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IPolizasRepository .cs" />
+    <Compile Include="Interfaces\IRefreshTokensRepository.cs" />
     <Compile Include="Interfaces\ITiposCubrimientoRepository.cs" />
     <Compile Include="Interfaces\ITiposRiesgoRepository.cs" />
+    <Compile Include="Interfaces\IUsuariosRepository.cs" />
     <Compile Include="Model\ModelSegurosGAP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -18,12 +18,12 @@
 
         public virtual void Add(T entity)
         {
-            _entities.Set<T>().Add(entity);
+            _entities.Entry(entity).State = EntityState.Added;
         }
 
         public virtual void Delete(T entity)
         {
-            _entities.Set<T>().Remove(entity);
+            _entities.Entry(entity).State = EntityState.Deleted;
         }
 
         public virtual void Edit(T entity)

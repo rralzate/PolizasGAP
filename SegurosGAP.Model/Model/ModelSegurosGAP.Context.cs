@@ -9,11 +9,11 @@
 
 namespace SegurosGAP.Model.Model
 {
+    using SegurosGAP.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using SegurosGAP.Entities;
-
+    
     public partial class DBSegurosGAPEntities : DbContext
     {
         public DBSegurosGAPEntities()
@@ -29,5 +29,10 @@ namespace SegurosGAP.Model.Model
         public virtual DbSet<PolizasSeguro> PolizasSeguros { get; set; }
         public virtual DbSet<TiposCubrimiento> TiposCubrimientoes { get; set; }
         public virtual DbSet<TiposRiesgo> TiposRiesgoes { get; set; }
+        public virtual DbSet<Application> Applications { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Cliente> Clientes { get; set; }
+        public virtual DbSet<PolizasCliente> PolizasClientes { get; set; }
     }
 }

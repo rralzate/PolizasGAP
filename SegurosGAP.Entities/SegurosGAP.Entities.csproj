@@ -49,19 +49,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs">
+      <DependentUpon>ModelPolizas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente.cs">
+      <DependentUpon>ModelPolizas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\InfoPolizasSeguro.cs" />
     <Compile Include="ModelPolizas.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPolizas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolizasCliente.cs">
       <DependentUpon>ModelPolizas.tt</DependentUpon>
     </Compile>
     <Compile Include="PolizasSeguro.cs">
       <DependentUpon>ModelPolizas.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefreshToken.cs">
+      <DependentUpon>ModelPolizas.tt</DependentUpon>
+    </Compile>
     <Compile Include="TiposCubrimiento.cs">
       <DependentUpon>ModelPolizas.tt</DependentUpon>
     </Compile>
     <Compile Include="TiposRiesgo.cs">
+      <DependentUpon>ModelPolizas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
       <DependentUpon>ModelPolizas.tt</DependentUpon>
     </Compile>
   </ItemGroup>

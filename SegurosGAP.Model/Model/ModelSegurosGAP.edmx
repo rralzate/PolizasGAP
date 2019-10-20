@@ -4,7 +4,37 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBSegurosGAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBSegurosGAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="IdApplication" />
+          </Key>
+          <Property Name="IdApplication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeApplication" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="int" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pais" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ocupacion" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PolizasClientes">
+          <Key>
+            <PropertyRef Name="IdPolizaSeguro" />
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdPolizaSeguro" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PolizasSeguros">
           <Key>
             <PropertyRef Name="IdPolizaSeguro" />
@@ -17,6 +47,18 @@
           <Property Name="PeriodoCobertura" Type="int" />
           <Property Name="PrecioPoliza" Type="decimal" Precision="18" Scale="0" />
           <Property Name="IdTipoRiesgo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RefreshTokens">
+          <Key>
+            <PropertyRef Name="IdRefreshTokens" />
+          </Key>
+          <Property Name="IdRefreshTokens" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClientId" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IssuedUtc" Type="datetime" Nullable="false" />
+          <Property Name="ExpiresUtc" Type="datetime" Nullable="false" />
+          <Property Name="ProtectedTicket" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="TiposCubrimiento">
           <Key>
@@ -33,6 +75,18 @@
           <Property Name="IdTipoRiesgo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoRiesgo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FechaUltimaActualizacion" Type="datetime" />
+          <Property Name="FechaUltimoAcceso" Type="datetime" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_TiposCubrimiento_PolizasSeguros">
           <End Role="TiposCubrimiento" Type="Self.TiposCubrimiento" Multiplicity="1" />
@@ -59,9 +113,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBSegurosGAPModelStoreContainer">
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PolizasSeguros" EntityType="Self.PolizasSeguros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RefreshTokens" EntityType="Self.RefreshTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposCubrimiento" EntityType="Self.TiposCubrimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposRiesgo" EntityType="Self.TiposRiesgo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PolizasClientes" EntityType="Self.PolizasClientes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PolizasClientes].[IdPolizaSeguro] AS [IdPolizaSeguro], 
+    [PolizasClientes].[IdCliente] AS [IdCliente]
+    FROM [dbo].[PolizasClientes] AS [PolizasClientes]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_TiposCubrimiento_PolizasSeguros" Association="Self.FK_TiposCubrimiento_PolizasSeguros">
             <End Role="TiposCubrimiento" EntitySet="TiposCubrimiento" />
             <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
@@ -71,8 +135,7 @@
             <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBSegurosGAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -145,7 +208,64 @@
             <End Role="TiposRiesgo" EntitySet="TiposRiesgoes" />
             <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
           </AssociationSet>
+          <EntitySet Name="Applications" EntityType="DBSegurosGAPModel.Application" />
+          <EntitySet Name="RefreshTokens" EntityType="DBSegurosGAPModel.RefreshToken" />
+          <EntitySet Name="Usuarios" EntityType="DBSegurosGAPModel.Usuario" />
+          <EntitySet Name="Clientes" EntityType="DBSegurosGAPModel.Cliente" />
+          <EntitySet Name="PolizasClientes" EntityType="DBSegurosGAPModel.PolizasCliente" />
         </EntityContainer>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="IdApplication" />
+          </Key>
+          <Property Name="IdApplication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeApplication" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RefreshToken">
+          <Key>
+            <PropertyRef Name="IdRefreshTokens" />
+          </Key>
+          <Property Name="IdRefreshTokens" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IssuedUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProtectedTicket" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaUltimaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaUltimoAcceso" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ocupacion" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PolizasCliente">
+          <Key>
+            <PropertyRef Name="IdPolizaSeguro" />
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdPolizaSeguro" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -181,6 +301,62 @@
                 <ScalarProperty Name="IdTipoRiesgo" ColumnName="IdTipoRiesgo" />
                 <ScalarProperty Name="TipoRiesgo" ColumnName="TipoRiesgo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AllowedOrigin" ColumnName="AllowedOrigin" />
+                <ScalarProperty Name="RefreshTokenLifeTime" ColumnName="RefreshTokenLifeTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CodeApplication" ColumnName="CodeApplication" />
+                <ScalarProperty Name="IdApplication" ColumnName="IdApplication" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RefreshTokens">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.RefreshToken">
+              <MappingFragment StoreEntitySet="RefreshTokens">
+                <ScalarProperty Name="ProtectedTicket" ColumnName="ProtectedTicket" />
+                <ScalarProperty Name="ExpiresUtc" ColumnName="ExpiresUtc" />
+                <ScalarProperty Name="IssuedUtc" ColumnName="IssuedUtc" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdRefreshTokens" ColumnName="IdRefreshTokens" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaUltimoAcceso" ColumnName="FechaUltimoAcceso" />
+                <ScalarProperty Name="FechaUltimaActualizacion" ColumnName="FechaUltimaActualizacion" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Ocupacion" ColumnName="Ocupacion" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolizasClientes">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.PolizasCliente">
+              <MappingFragment StoreEntitySet="PolizasClientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdPolizaSeguro" ColumnName="IdPolizaSeguro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

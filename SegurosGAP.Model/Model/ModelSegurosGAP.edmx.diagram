@@ -10,6 +10,11 @@
         <EntityTypeShape EntityType="DBSegurosGAPModel.TiposRiesgo" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="DBSegurosGAPModel.FK_TiposCubrimiento_PolizasSeguros" ManuallyRouted="false" />
         <AssociationConnector Association="DBSegurosGAPModel.FK_TiposRiesgo_PolizasSeguros" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.Application" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.RefreshToken" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.Usuario" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.Cliente" Width="1.5" PointX="4.375" PointY="8.375" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.PolizasCliente" Width="1.5" PointX="7.375" PointY="3.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

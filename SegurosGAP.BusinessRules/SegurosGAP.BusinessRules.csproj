@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericBusinessRules\ApplicationRepository.cs" />
     <Compile Include="GenericBusinessRules\PolizasRepository.cs" />
+    <Compile Include="GenericBusinessRules\RefreshTokensRepository.cs" />
     <Compile Include="GenericBusinessRules\TiposCubrimientoRepository.cs" />
     <Compile Include="GenericBusinessRules\TiposRiesgoRepository.cs" />
+    <Compile Include="GenericBusinessRules\UsuariosRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
