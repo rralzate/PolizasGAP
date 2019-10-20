@@ -16,7 +16,12 @@ namespace SegurosGAP.Entities
     [DataContract(IsReference = true)]
     public partial class PolizasCliente
     {
-        [DataMember]public int IdPolizaSeguro { get; set; }
+        [DataMember]public int IdPolizasClientes { get; set; }
         [DataMember]public int IdCliente { get; set; }
+        [DataMember]public int IdPolizaSeguro { get; set; }
+        [DataMember]public Nullable<int> PorcentajeCubrimiento { get; set; }
+    
+        public virtual Cliente Cliente { get; set; }
+        public virtual PolizasSeguro PolizasSeguro { get; set; }
     }
 }

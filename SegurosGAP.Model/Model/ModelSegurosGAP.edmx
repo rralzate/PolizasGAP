@@ -25,15 +25,24 @@
           <Property Name="Pais" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Ocupacion" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ValorPorDefecto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="PolizasClientes">
           <Key>
-            <PropertyRef Name="IdPolizaSeguro" />
-            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="IdPolizasClientes" />
           </Key>
-          <Property Name="IdPolizaSeguro" Type="int" Nullable="false" />
+          <Property Name="IdPolizasClientes" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdPolizaSeguro" Type="int" Nullable="false" />
+          <Property Name="PorcentajeCubrimiento" Type="int" />
         </EntityType>
         <EntityType Name="PolizasSeguros">
           <Key>
@@ -88,6 +97,30 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
           <Property Name="FechaUltimoAcceso" Type="datetime" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_PolizasClientes_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="PolizasClientes" Type="Self.PolizasClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="PolizasClientes">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolizasClientes_PolizasSeguros">
+          <End Role="PolizasSeguros" Type="Self.PolizasSeguros" Multiplicity="1" />
+          <End Role="PolizasClientes" Type="Self.PolizasClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolizasSeguros">
+              <PropertyRef Name="IdPolizaSeguro" />
+            </Principal>
+            <Dependent Role="PolizasClientes">
+              <PropertyRef Name="IdPolizaSeguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TiposCubrimiento_PolizasSeguros">
           <End Role="TiposCubrimiento" Type="Self.TiposCubrimiento" Multiplicity="1" />
           <End Role="PolizasSeguros" Type="Self.PolizasSeguros" Multiplicity="*" />
@@ -115,17 +148,21 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
         <EntityContainer Name="DBSegurosGAPModelStoreContainer">
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PolizasClientes" EntityType="Self.PolizasClientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PolizasSeguros" EntityType="Self.PolizasSeguros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RefreshTokens" EntityType="Self.RefreshTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposCubrimiento" EntityType="Self.TiposCubrimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposRiesgo" EntityType="Self.TiposRiesgo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PolizasClientes" EntityType="Self.PolizasClientes" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PolizasClientes].[IdPolizaSeguro] AS [IdPolizaSeguro], 
-    [PolizasClientes].[IdCliente] AS [IdCliente]
-    FROM [dbo].[PolizasClientes] AS [PolizasClientes]</DefiningQuery>
-          </EntitySet>
+          <AssociationSet Name="FK_PolizasClientes_Clientes" Association="Self.FK_PolizasClientes_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="PolizasClientes" EntitySet="PolizasClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolizasClientes_PolizasSeguros" Association="Self.FK_PolizasClientes_PolizasSeguros">
+            <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
+            <End Role="PolizasClientes" EntitySet="PolizasClientes" />
+          </AssociationSet>
           <AssociationSet Name="FK_TiposCubrimiento_PolizasSeguros" Association="Self.FK_TiposCubrimiento_PolizasSeguros">
             <End Role="TiposCubrimiento" EntitySet="TiposCubrimiento" />
             <End Role="PolizasSeguros" EntitySet="PolizasSeguros" />
@@ -153,6 +190,7 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
           <Property Name="IdTipoRiesgo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TiposCubrimiento" Relationship="Self.FK_TiposCubrimiento_PolizasSeguros" FromRole="PolizasSeguros" ToRole="TiposCubrimiento" />
           <NavigationProperty Name="TiposRiesgo" Relationship="Self.FK_TiposRiesgo_PolizasSeguros" FromRole="PolizasSeguros" ToRole="TiposRiesgo" />
+          <NavigationProperty Name="PolizasClientes" Relationship="DBSegurosGAPModel.FK_PolizasClientes_PolizasSeguros" FromRole="PolizasSeguro" ToRole="PolizasCliente" />
         </EntityType>
         <EntityType Name="TiposCubrimiento">
           <Key>
@@ -213,6 +251,15 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
           <EntitySet Name="Usuarios" EntityType="DBSegurosGAPModel.Usuario" />
           <EntitySet Name="Clientes" EntityType="DBSegurosGAPModel.Cliente" />
           <EntitySet Name="PolizasClientes" EntityType="DBSegurosGAPModel.PolizasCliente" />
+          <AssociationSet Name="FK_PolizasClientes_Clientes" Association="DBSegurosGAPModel.FK_PolizasClientes_Clientes">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="PolizasCliente" EntitySet="PolizasClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolizasClientes_PolizasSeguros" Association="DBSegurosGAPModel.FK_PolizasClientes_PolizasSeguros">
+            <End Role="PolizasSeguro" EntitySet="PolizasSeguros" />
+            <End Role="PolizasCliente" EntitySet="PolizasClientes" />
+          </AssociationSet>
+          <EntitySet Name="Parametros" EntityType="DBSegurosGAPModel.Parametro" />
         </EntityContainer>
         <EntityType Name="Application">
           <Key>
@@ -257,14 +304,52 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Ocupacion" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PolizasClientes" Relationship="DBSegurosGAPModel.FK_PolizasClientes_Clientes" FromRole="Cliente" ToRole="PolizasCliente" />
         </EntityType>
         <EntityType Name="PolizasCliente">
           <Key>
-            <PropertyRef Name="IdPolizaSeguro" />
-            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="IdPolizasClientes" />
           </Key>
-          <Property Name="IdPolizaSeguro" Type="Int32" Nullable="false" />
+          <Property Name="IdPolizasClientes" Type="Int32" Nullable="false" />
           <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdPolizaSeguro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="DBSegurosGAPModel.FK_PolizasClientes_Clientes" FromRole="PolizasCliente" ToRole="Cliente" />
+          <NavigationProperty Name="PolizasSeguro" Relationship="DBSegurosGAPModel.FK_PolizasClientes_PolizasSeguros" FromRole="PolizasCliente" ToRole="PolizasSeguro" />
+          <Property Name="PorcentajeCubrimiento" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_PolizasClientes_Clientes">
+          <End Type="DBSegurosGAPModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="DBSegurosGAPModel.PolizasCliente" Role="PolizasCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="PolizasCliente">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolizasClientes_PolizasSeguros">
+          <End Type="DBSegurosGAPModel.PolizasSeguro" Role="PolizasSeguro" Multiplicity="1" />
+          <End Type="DBSegurosGAPModel.PolizasCliente" Role="PolizasCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolizasSeguro">
+              <PropertyRef Name="IdPolizaSeguro" />
+            </Principal>
+            <Dependent Role="PolizasCliente">
+              <PropertyRef Name="IdPolizaSeguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValorPorDefecto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -355,8 +440,21 @@ warning 6002: The table/view 'DBSegurosGAP.dbo.PolizasClientes' does not have a 
           <EntitySetMapping Name="PolizasClientes">
             <EntityTypeMapping TypeName="DBSegurosGAPModel.PolizasCliente">
               <MappingFragment StoreEntitySet="PolizasClientes">
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="PorcentajeCubrimiento" ColumnName="PorcentajeCubrimiento" />
                 <ScalarProperty Name="IdPolizaSeguro" ColumnName="IdPolizaSeguro" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdPolizasClientes" ColumnName="IdPolizasClientes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametros">
+            <EntityTypeMapping TypeName="DBSegurosGAPModel.Parametro">
+              <MappingFragment StoreEntitySet="Parametros">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ValorPorDefecto" ColumnName="ValorPorDefecto" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

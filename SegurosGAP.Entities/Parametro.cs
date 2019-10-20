@@ -14,20 +14,12 @@ namespace SegurosGAP.Entities
     using System.Runtime.Serialization;
     
     [DataContract(IsReference = true)]
-    public partial class Cliente
+    public partial class Parametro
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cliente()
-        {
-            this.PolizasClientes = new HashSet<PolizasCliente>();
-        }
-    
-        [DataMember]public int IdCliente { get; set; }
+        [DataMember]public int Id { get; set; }
         [DataMember]public string Nombre { get; set; }
-        [DataMember]public string Pais { get; set; }
-        [DataMember]public string Ocupacion { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PolizasCliente> PolizasClientes { get; set; }
+        [DataMember]public string Valor { get; set; }
+        [DataMember]public string ValorPorDefecto { get; set; }
+        [DataMember]public bool Estado { get; set; }
     }
 }

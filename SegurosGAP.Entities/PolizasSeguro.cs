@@ -16,6 +16,12 @@ namespace SegurosGAP.Entities
     [DataContract(IsReference = true)]
     public partial class PolizasSeguro
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PolizasSeguro()
+        {
+            this.PolizasClientes = new HashSet<PolizasCliente>();
+        }
+    
         [DataMember]public int IdPolizaSeguro { get; set; }
         [DataMember]public string Nombre { get; set; }
         [DataMember]public string Descripcion { get; set; }
@@ -27,5 +33,7 @@ namespace SegurosGAP.Entities
     
         public virtual TiposCubrimiento TiposCubrimiento { get; set; }
         public virtual TiposRiesgo TiposRiesgo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolizasCliente> PolizasClientes { get; set; }
     }
 }

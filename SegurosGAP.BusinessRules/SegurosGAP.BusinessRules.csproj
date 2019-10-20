@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="SGRepositoryGeneric, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SGRepositoryGeneric.1.0.10\lib\SGRepositoryGeneric.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericBusinessRules\ApplicationRepository.cs" />
+    <Compile Include="GenericBusinessRules\ClientesRepository.cs" />
+    <Compile Include="GenericBusinessRules\ParametrosRepository.cs" />
+    <Compile Include="GenericBusinessRules\PolizasClienteRepository.cs" />
     <Compile Include="GenericBusinessRules\PolizasRepository.cs" />
     <Compile Include="GenericBusinessRules\RefreshTokensRepository.cs" />
     <Compile Include="GenericBusinessRules\TiposCubrimientoRepository.cs" />

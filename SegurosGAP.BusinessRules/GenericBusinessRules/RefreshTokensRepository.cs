@@ -14,22 +14,36 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
     {
         public bool AddRefreshToken(RefreshToken token)
         {
-            var existingToken = FindBy(x => x.Subject == token.Subject && x.ClientId == token.ClientId).FirstOrDefault();
-
-            if (existingToken != null)
+            try
             {
-                RemoveRefreshToken(existingToken);
+                var existingToken = FindBy(x => x.Subject == token.Subject && x.ClientId == token.ClientId).FirstOrDefault();
+
+                if (existingToken != null)
+                {
+                    RemoveRefreshToken(existingToken);
+                }
+                Add(token);
+                Save();
+                return true;
             }
-            Add(token);
-            Save();
-            return true;          
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool RemoveRefreshToken(RefreshToken token)
         {
-            Delete(token);
-            Save();
-            return true;
+            try
+            {
+                Delete(token);
+                Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public RefreshToken FindRefreshToken(string refreshTokenId)

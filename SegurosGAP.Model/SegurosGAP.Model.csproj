@@ -57,6 +57,8 @@
     <Compile Include="Interfaces\IApplicationRepository.cs" />
     <Compile Include="Interfaces\IClientesRepository.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\IParametrosRepository.cs" />
+    <Compile Include="Interfaces\IPolizasCliente.cs" />
     <Compile Include="Interfaces\IPolizasRepository .cs" />
     <Compile Include="Interfaces\IRefreshTokensRepository.cs" />
     <Compile Include="Interfaces\ITiposCubrimientoRepository.cs" />

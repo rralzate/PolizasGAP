@@ -34,5 +34,6 @@ namespace SegurosGAP.Model.Model
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<PolizasCliente> PolizasClientes { get; set; }
+        public virtual DbSet<Parametro> Parametros { get; set; }
     }
 }

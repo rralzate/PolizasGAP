@@ -3,30 +3,28 @@ using System.Collections.Generic;
 using System.Web.Http;
 using SegurosGAP.Entities;
 using System;
-using SegurosGAP.Entities.DTO;
 
 namespace WebApiGap.Controllers
 {
     [Authorize]
-    public class PolizasController : ApiController
+    public class PolizasClienteController : ApiController
     {
+        private readonly PolizasClienteRepository _polizasClienteRepository;
 
-        private readonly PolizasRepository _polizasRepository;
-
-        public PolizasController() { _polizasRepository = new PolizasRepository(); }
+        public PolizasClienteController() { _polizasClienteRepository = new PolizasClienteRepository(); }
 
         /// <summary>
-        /// Service method to obtain one policy
+        /// Service method to obtain one client policies
         /// </summary>
-        /// <param name="idPoliza"></param>
-        /// <returns>InfoPolizasSeguro</returns>
-        [Route("api/v1/Polizas/GetSingle")]
+        /// <param name="idClient"></param>
+        /// <returns>Cliente</returns>
+        [Route("api/v1/PolizasCliente/GetPolicyClient")]
         [HttpGet]
-        public InfoPolizasSeguro GetSingle(int idPoliza)
+        public List<PolizasCliente> GetPolicyClient(int idClient)
         {
             try
-            {                
-                var result = _polizasRepository.GetPoliza(idPoliza);
+            {
+                var result = _polizasClienteRepository.FindpPolicyClient(idClient);
                 return result;
             }
             catch (Exception ex)
@@ -36,16 +34,16 @@ namespace WebApiGap.Controllers
         }
 
         /// <summary>
-        /// Service method to obtain all policies
+        /// Service method to obtain all clients
         /// </summary>       
-        /// <returns>List<InfoPolizasSeguro></returns>
-        [Route("api/v1/Polizas/GetPolicies")]
+        /// <returns>List<PolizasCliente></returns>
+        [Route("api/v1/PolizasCliente/GetPoliciesClients")]
         [HttpGet]
-        public List<InfoPolizasSeguro> GetPolicies()
+        public List<PolizasCliente> GetPoliciesClients()
         {
             try
-            {               
-                var result = _polizasRepository.GetPolizas();
+            {
+                var result = _polizasClienteRepository.GetPoliciesClients();
                 return result;
             }
             catch (Exception ex)
@@ -55,17 +53,17 @@ namespace WebApiGap.Controllers
         }
 
         /// <summary>
-        /// Service method to delete one policy
+        /// Service method to delete one Client
         /// </summary>
         /// <param name="value"></param>
         /// <returns>bool</returns>
-        [Route("api/v1/Polizas/DeletePolicy")]
+        [Route("api/v1/PolizasCliente/DeleteClient")]
         [HttpPost]
-        public bool DeletePolicy([FromBody]PolizasSeguro value)
+        public bool DeletePolicyClient([FromBody]PolizasCliente value)
         {
             try
-            {                
-                var result = _polizasRepository.DeletePoliza(value);
+            {
+                var result = _polizasClienteRepository.DeletePolicyClient(value);
                 return result;
             }
             catch (Exception ex)
@@ -79,13 +77,13 @@ namespace WebApiGap.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns>bool</returns>
-        [Route("api/v1/Polizas/AddPolicy")]
+        [Route("api/v1/PolizasCliente/AddPolicyClient")]
         [HttpPost]
-        public bool AddPolicy([FromBody]PolizasSeguro value)
+        public bool AddPolicyClient([FromBody]PolizasCliente value)
         {
             try
             {
-                var result = _polizasRepository.AddPoliza(value);
+                var result = _polizasClienteRepository.AddPolicyClient(value);
                 return result;
             }
             catch (Exception ex)
@@ -95,23 +93,23 @@ namespace WebApiGap.Controllers
         }
 
         /// <summary>
-        /// Service method to Edit one policy
+        /// Service method to Edit one Client
         /// </summary>
         /// <param name="value"></param>
         /// <returns>bool</returns>
-        [Route("api/v1/Polizas/EditPolicy")]
+        [Route("api/v1/PolizasCliente/UpdateClient")]
         [HttpPost]
-        public bool EditPolicy([FromBody]PolizasSeguro value)
+        public bool UpdatePolicyClient([FromBody]PolizasCliente value)
         {
             try
             {
-                var result = _polizasRepository.EditPoliza(value);
+                var result = _polizasClienteRepository.UpdatePolicyClient(value);
                 return result;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }       
+        }
     }
 }

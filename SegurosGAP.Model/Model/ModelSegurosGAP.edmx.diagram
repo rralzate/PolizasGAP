@@ -14,7 +14,10 @@
         <EntityTypeShape EntityType="DBSegurosGAPModel.RefreshToken" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DBSegurosGAPModel.Usuario" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="DBSegurosGAPModel.Cliente" Width="1.5" PointX="4.375" PointY="8.375" />
-        <EntityTypeShape EntityType="DBSegurosGAPModel.PolizasCliente" Width="1.5" PointX="7.375" PointY="3.25" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.PolizasCliente" Width="1.5" PointX="7.625" PointY="4.75" />
+        <AssociationConnector Association="DBSegurosGAPModel.FK_PolizasClientes_Clientes" />
+        <AssociationConnector Association="DBSegurosGAPModel.FK_PolizasClientes_PolizasSeguros" />
+        <EntityTypeShape EntityType="DBSegurosGAPModel.Parametro" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
