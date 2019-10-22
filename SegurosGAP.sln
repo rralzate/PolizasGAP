@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSitePolizas", "WebSite\WebSitePolizas.csproj", "{29F74AB3-A61C-41E0-8786-AE31618F342E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegurosGAP.Model", "SegurosGAP.Model\SegurosGAP.Model.csproj", "{EA75723A-B2D7-432C-9212-1F88A5863325}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegurosGAP.BusinessRules", "SegurosGAP.BusinessRules\SegurosGAP.BusinessRules.csproj", "{4A60C80C-5767-41DB-94F3-94CAE63B2167}"
@@ -15,16 +13,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiGap", "WebApiGap\WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{45BC9A72-A16B-4708-B349-F5B363349EF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegurosGAP.UnitTest", "SegurosGAP.UnitTest\SegurosGAP.UnitTest.csproj", "{CF9C9CCD-0950-4230-B973-131298083CB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{155177A8-3D9A-4B1C-AC96-F31F563B3B2C}"
+	ProjectSection(SolutionItems) = preProject
+		DataBase\DBSegurosGAP.bak = DataBase\DBSegurosGAP.bak
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29F74AB3-A61C-41E0-8786-AE31618F342E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29F74AB3-A61C-41E0-8786-AE31618F342E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29F74AB3-A61C-41E0-8786-AE31618F342E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29F74AB3-A61C-41E0-8786-AE31618F342E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA75723A-B2D7-432C-9212-1F88A5863325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA75723A-B2D7-432C-9212-1F88A5863325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA75723A-B2D7-432C-9212-1F88A5863325}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +46,10 @@ Global
 		{45BC9A72-A16B-4708-B349-F5B363349EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BC9A72-A16B-4708-B349-F5B363349EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BC9A72-A16B-4708-B349-F5B363349EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9C9CCD-0950-4230-B973-131298083CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9C9CCD-0950-4230-B973-131298083CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9C9CCD-0950-4230-B973-131298083CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9C9CCD-0950-4230-B973-131298083CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

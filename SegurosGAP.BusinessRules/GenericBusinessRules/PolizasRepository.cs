@@ -13,53 +13,70 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
     {
         public InfoPolizasSeguro GetPoliza(int idPoliza)
         {
-            var result = GetAll().FirstOrDefault(x => x.IdPolizaSeguro == idPoliza);
-
-            InfoPolizasSeguro poliza = new InfoPolizasSeguro
+            try
             {
-                IdPolizaSeguro = result.IdPolizaSeguro,
-                Nombre = result.Nombre,
-                Descripcion = result.Descripcion,
-                InicioVigencia = result.InicioVigencia,
-                PeriodoCobertura = result.PeriodoCobertura,
-                PrecioPoliza = result.PrecioPoliza,
-                TipoRiesgo = result.TiposCubrimiento.TipoCubrimiento,
-                TipoCubrimiento = result.TiposRiesgo.TipoRiesgo
-            };
+                var result = GetAll().FirstOrDefault(x => x.IdPolizaSeguro == idPoliza);
 
-            return poliza;           
+                InfoPolizasSeguro poliza = new InfoPolizasSeguro
+                {
+                    IdPolizaSeguro = result.IdPolizaSeguro,
+                    Nombre = result.Nombre,
+                    Descripcion = result.Descripcion,
+                    InicioVigencia = result.InicioVigencia,
+                    PeriodoCobertura = result.PeriodoCobertura,
+                    PrecioPoliza = result.PrecioPoliza,
+                    TipoCubrimiento = result.TiposCubrimiento.TipoCubrimiento,
+                    TipoRiesgo = result.TiposRiesgo.TipoRiesgo
+                };
+
+                return poliza;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
                 
         public List<InfoPolizasSeguro> GetPolizas()
         {
-            var result = GetAll().ToList();
-            List<InfoPolizasSeguro> lista = new List<InfoPolizasSeguro>();
-
-            foreach (var item in result)
+            try
             {
-                InfoPolizasSeguro poliza = new InfoPolizasSeguro
+                var result = GetAll().ToList();
+                List<InfoPolizasSeguro> lista = new List<InfoPolizasSeguro>();
+
+                foreach (var item in result)
                 {
-                    IdPolizaSeguro = item.IdPolizaSeguro,
-                    Nombre = item.Nombre,
-                    Descripcion = item.Descripcion,
-                    InicioVigencia = item.InicioVigencia,
-                    PeriodoCobertura = item.PeriodoCobertura,
-                    PrecioPoliza = item.PrecioPoliza,
-                    TipoRiesgo = item.TiposCubrimiento.TipoCubrimiento,
-                    TipoCubrimiento = item.TiposRiesgo.TipoRiesgo
-                };
-                lista.Add(poliza);
+                    InfoPolizasSeguro poliza = new InfoPolizasSeguro
+                    {
+                        IdPolizaSeguro = item.IdPolizaSeguro,
+                        Nombre = item.Nombre,
+                        Descripcion = item.Descripcion,
+                        InicioVigencia = item.InicioVigencia,
+                        PeriodoCobertura = item.PeriodoCobertura,
+                        PrecioPoliza = item.PrecioPoliza,
+                        TipoCubrimiento = item.TiposCubrimiento.TipoCubrimiento,
+                        TipoRiesgo = item.TiposRiesgo.TipoRiesgo
+                    };
+                    lista.Add(poliza);
+                }
+                return lista;
             }
-            return lista;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public bool DeletePoliza(PolizasSeguro policy)
+        public MessageResponse DeletePoliza(PolizasSeguro policy)
         {
             try
             {
+                MessageResponse response = new MessageResponse();
                 Delete(policy);
                 Save();
-                return true;
+                response.Code = 1;
+                response.Message = "Success";
+                return response;
             }
             catch (Exception ex)
             {
@@ -67,13 +84,16 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
             }
         }
 
-        public bool EditPoliza(PolizasSeguro policy)
+        public MessageResponse EditPoliza(PolizasSeguro policy)
         {
             try
             {
+                MessageResponse response = new MessageResponse();
                 Edit(policy);
                 Save();
-                return true;
+                response.Code = 1;
+                response.Message = "Success";
+                return response;
             }
             catch (Exception ex)
             {
@@ -81,13 +101,16 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
             }
         }
 
-        public bool AddPoliza(PolizasSeguro policy)
+        public MessageResponse AddPoliza(PolizasSeguro policy)
         {
             try
             {
+                MessageResponse response = new MessageResponse();
                 Add(policy);
                 Save();
-                return true;
+                response.Code = 1;
+                response.Message = "Success";
+                return response;
             }
             catch (Exception ex)
             {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Web.Http;
 using SegurosGAP.Entities;
 using System;
+using SegurosGAP.Entities.DTO;
 
 namespace WebApiGap.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PolizasClienteController : ApiController
     {
         private readonly PolizasClienteRepository _polizasClienteRepository;
@@ -79,11 +80,11 @@ namespace WebApiGap.Controllers
         /// <returns>bool</returns>
         [Route("api/v1/PolizasCliente/AddPolicyClient")]
         [HttpPost]
-        public bool AddPolicyClient([FromBody]PolizasCliente value)
+        public MessageResponse AddPolicyClient([FromBody]PolizasCliente value)
         {
             try
             {
-                var result = _polizasClienteRepository.AddPolicyClient(value);
+                var result = _polizasClienteRepository.AddPolicyClient(value);              
                 return result;
             }
             catch (Exception ex)
@@ -99,7 +100,7 @@ namespace WebApiGap.Controllers
         /// <returns>bool</returns>
         [Route("api/v1/PolizasCliente/UpdateClient")]
         [HttpPost]
-        public bool UpdatePolicyClient([FromBody]PolizasCliente value)
+        public MessageResponse UpdatePolicyClient([FromBody]PolizasCliente value)
         {
             try
             {

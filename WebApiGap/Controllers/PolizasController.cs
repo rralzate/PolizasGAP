@@ -7,7 +7,7 @@ using SegurosGAP.Entities.DTO;
 
 namespace WebApiGap.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PolizasController : ApiController
     {
 
@@ -61,7 +61,7 @@ namespace WebApiGap.Controllers
         /// <returns>bool</returns>
         [Route("api/v1/Polizas/DeletePolicy")]
         [HttpPost]
-        public bool DeletePolicy([FromBody]PolizasSeguro value)
+        public MessageResponse DeletePolicy([FromBody]PolizasSeguro value)
         {
             try
             {                
@@ -81,7 +81,7 @@ namespace WebApiGap.Controllers
         /// <returns>bool</returns>
         [Route("api/v1/Polizas/AddPolicy")]
         [HttpPost]
-        public bool AddPolicy([FromBody]PolizasSeguro value)
+        public MessageResponse AddPolicy([FromBody]PolizasSeguro value)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace WebApiGap.Controllers
         /// <returns>bool</returns>
         [Route("api/v1/Polizas/EditPolicy")]
         [HttpPost]
-        public bool EditPolicy([FromBody]PolizasSeguro value)
+        public MessageResponse EditPolicy([FromBody]PolizasSeguro value)
         {
             try
             {

@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace WebApiGap.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsuariosController : ApiController
     {
         private readonly UsuariosRepository _usuariosRepository;

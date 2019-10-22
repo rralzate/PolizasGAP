@@ -14,34 +14,66 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
     {
         public Cliente FindClient(int idClient)
         {
-            var client = FindBy(x => x.IdCliente == idClient).FirstOrDefault();
-            return client;
+            try { 
+                var client = FindBy(x => x.IdCliente == idClient).FirstOrDefault();
+                return client;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<Cliente> GetClients()
         {
-            var result = GetAll().ToList();
-            return result;
+            try { 
+                var result = GetAll().ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool UpdateClient(Cliente client)
         {
-            Edit(client);
-            Save();
-            return true;
+            try { 
+                Edit(client);
+                Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool AddClient(Cliente client)
         {
-            Add(client);
-            Save();
-            return true;
+            try
+            { 
+                Add(client);
+                Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         public bool DeleteClient(Cliente client)
         {
-            Delete(client);
-            Save();
-            return true;
+            try { 
+                Delete(client);
+                Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

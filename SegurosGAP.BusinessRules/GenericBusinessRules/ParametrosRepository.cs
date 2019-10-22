@@ -13,13 +13,26 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
     {
         public Parametro FindParemeter(int id)
         {
-            var parameter = FindBy(x => x.Id == id).FirstOrDefault();
-            return parameter;
+            try { 
+                var parameter = FindBy(x => x.Id == id).FirstOrDefault();
+                return parameter;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int getValueParameter(Parametro oParameter, int defaultValue, bool bMayor = true)
         {
+            try
+            { 
             return oParameter?.Valor.GetValue<string, int>(defaultValue, bMayor) ?? defaultValue;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

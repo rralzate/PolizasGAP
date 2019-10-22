@@ -6,7 +6,7 @@ using System;
 
 namespace WebApiGap.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ClientesController : ApiController
     {
         private readonly ClientesRepository _clientesRepository;

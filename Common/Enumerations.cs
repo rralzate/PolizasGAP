@@ -31,6 +31,14 @@ namespace Common
             IncorrectData
         }
 
+        public enum TipoRiesgo
+        {
+            Bajo = 1,
+            Medio = 2,
+            MedioAlto = 3,
+            Alto = 4
+        }
+
         public enum eParameter : int { AccessTokenExpire = 1, CantidadRegistrosPagina = 2 }
 
         public enum eParameterHTML : int { PlantillaMensajes = 1 }

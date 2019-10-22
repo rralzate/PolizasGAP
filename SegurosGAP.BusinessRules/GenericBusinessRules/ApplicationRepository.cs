@@ -14,9 +14,14 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
     {
         public Application FindAplicacion(string clientId)
         {
-            var result = GetAll().FirstOrDefault(x => x.CodeApplication == clientId);
-
-            return result;
-        }
+           try { 
+                var result = GetAll().FirstOrDefault(x => x.CodeApplication == clientId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+}
     }
 }
