@@ -1,4 +1,5 @@
 ﻿using SegurosGAP.Entities;
+using SegurosGAP.Entities.DTO;
 using SegurosGAP.Model.Implementation;
 using SegurosGAP.Model.Interfaces;
 using SegurosGAP.Model.Model;
@@ -25,11 +26,14 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
             return true;
         }
 
-        public bool AddUser(Usuario user)
+        public MessageResponse AddUser(Usuario user)
         {
+            MessageResponse response = new MessageResponse();
             Add(user);
             Save();
-            return true;
+            response.Code = 1;
+            response.Message = "Success";
+            return response;
         }
         public bool DeleteUser(Usuario user)
         {

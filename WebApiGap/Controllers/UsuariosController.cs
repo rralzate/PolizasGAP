@@ -1,5 +1,6 @@
 ﻿using SegurosGAP.BusinessRules.GenericBusinessRules;
 using SegurosGAP.Entities;
+using SegurosGAP.Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,26 @@ namespace WebApiGap.Controllers
             try
             {
                 var result = _usuariosRepository.FindUser(value.Email, value.Contrasena);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Service method to Add one policy
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>bool</returns>
+        [Route("api/v1/Usuarios/AddUser")]
+        [HttpPost]
+        public MessageResponse AddUser([FromBody]Usuario value)
+        {
+            try
+            {
+                var result = _usuariosRepository.AddUser(value);
                 return result;
             }
             catch (Exception ex)

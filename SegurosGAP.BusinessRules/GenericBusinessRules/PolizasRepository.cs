@@ -16,17 +16,19 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
             try
             {
                 var result = GetAll().FirstOrDefault(x => x.IdPolizaSeguro == idPoliza);
-
+                
                 InfoPolizasSeguro poliza = new InfoPolizasSeguro
                 {
                     IdPolizaSeguro = result.IdPolizaSeguro,
                     Nombre = result.Nombre,
                     Descripcion = result.Descripcion,
-                    InicioVigencia = result.InicioVigencia,
+                    InicioVigencia = result.InicioVigencia.Value.ToString("MM/dd/yyyy"),
                     PeriodoCobertura = result.PeriodoCobertura,
                     PrecioPoliza = result.PrecioPoliza,
                     TipoCubrimiento = result.TiposCubrimiento.TipoCubrimiento,
-                    TipoRiesgo = result.TiposRiesgo.TipoRiesgo
+                    TipoRiesgo = result.TiposRiesgo.TipoRiesgo,
+                    IdTipoCubrimiento = result.TiposCubrimiento.IdTipoCubrimiento,
+                    IdTipoRiesgo = result.TiposRiesgo.IdTipoRiesgo,
                 };
 
                 return poliza;
@@ -51,11 +53,13 @@ namespace SegurosGAP.BusinessRules.GenericBusinessRules
                         IdPolizaSeguro = item.IdPolizaSeguro,
                         Nombre = item.Nombre,
                         Descripcion = item.Descripcion,
-                        InicioVigencia = item.InicioVigencia,
+                        InicioVigencia = item.InicioVigencia.Value.ToString("MM/dd/yyyy"),
                         PeriodoCobertura = item.PeriodoCobertura,
                         PrecioPoliza = item.PrecioPoliza,
                         TipoCubrimiento = item.TiposCubrimiento.TipoCubrimiento,
-                        TipoRiesgo = item.TiposRiesgo.TipoRiesgo
+                        TipoRiesgo = item.TiposRiesgo.TipoRiesgo,
+                        IdTipoCubrimiento = item.TiposCubrimiento.IdTipoCubrimiento,
+                        IdTipoRiesgo = item.TiposRiesgo.IdTipoRiesgo,
                     };
                     lista.Add(poliza);
                 }
